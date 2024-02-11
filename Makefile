@@ -1,13 +1,18 @@
 CC = gcc
-CFLAGS = -static -std=gnu11 -fopenmp -march=native -O3
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard src/run*.c)
 
-OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
+ifeq ($(OS),Windows_NT)
+	SRCW = src/win.c
+	CFLAGS = -static -fopenmp -march=native -O3 -D_WIN32 -I $(SRCW)
+else
+	CFLAGS = -static -std=gnu11 -fopenmp -march=native -O3
+endif
+
+OBJS = $(patsubst %.c,%.o,$(SRCS))
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ $< -lm
-%.o: %.cpp
-	$(CXX) $(CFLAGS) -o  $@ $< -lm
+	mv $@ .
 
 .PHONY: all
 all: $(OBJS)
