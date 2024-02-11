@@ -3,7 +3,7 @@ SRCS = $(wildcard src/run*.c)
 
 ifeq ($(OS),Windows_NT)
 	SRCW = src/win.c
-	CFLAGS = -static -fopenmp -march=native -O3 -D_WIN32 -I $(SRCW)
+	CFLAGS = -static -fopenmp -march=native -O3 -D_WIN32 -I. $(SRCW)
 else
 	CFLAGS = -static -std=gnu11 -fopenmp -march=native -O3
 endif
