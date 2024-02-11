@@ -11,7 +11,7 @@ endif
 OBJS = $(patsubst %.c,%.o,$(SRCS))
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ $< -lm
+	$(CC) $(CFLAGS) $< -o $@ -lm
 	mv $@ .
 
 .PHONY: all
